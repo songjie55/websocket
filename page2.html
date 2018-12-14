@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2</title>
+</head>
+<body>
+<input type="text" >
+<button>发送</button>
+<script>
+	var ws=new WebSocket('ws://localhost:3000?name=tow');//wss是ssl加密过得
+	ws.addEventListener('message',(e)=>{
+		console.log(e.data)
+	});
+	ws.addEventListener('open',(e)=>{
+		console.log('连接上')
+	});
+	ws.addEventListener('close',(e)=>{
+		console.log('连接关闭')
+	});
+	ws.addEventListener('error',(e)=>{
+		console.log('连接异常')
+	});
+	var btn=document.querySelector('button');
+	var obj={to:'one',msg:""};
+	btn.addEventListener('click',()=>{
+		obj.msg=document.querySelector('input').value;
+		ws.send(JSON.stringify(obj));
+	})
+</script>
+</body>
+</html>
